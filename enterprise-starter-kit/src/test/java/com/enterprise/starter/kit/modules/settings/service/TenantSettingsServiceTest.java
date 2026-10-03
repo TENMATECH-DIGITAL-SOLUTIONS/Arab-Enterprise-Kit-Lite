@@ -49,8 +49,6 @@ class TenantSettingsServiceTest {
         c.setTimezone("UTC");
         c.setDateFormat("yyyy-MM-dd");
         c.setLogoUrl("https://example.com/logo.png");
-        c.setPrimaryColor("#6366f1");
-        c.setCompanyTagline("Build the future");
         return c;
     }
 
@@ -65,8 +63,6 @@ class TenantSettingsServiceTest {
         assertThat(result.companyName()).isEqualTo("Acme Corp");
         assertThat(result.currency()).isEqualTo("USD");
         assertThat(result.logoUrl()).isEqualTo("https://example.com/logo.png");
-        assertThat(result.primaryColor()).isEqualTo("#6366f1");
-        assertThat(result.companyTagline()).isEqualTo("Build the future");
     }
 
     @Test
@@ -80,12 +76,10 @@ class TenantSettingsServiceTest {
     }
 
     @Test
-    @DisplayName("updateSettings() persists branding fields")
-    void updateSettings_persistsBranding() {
+    @DisplayName("updateSettings() ignores branding fields (white-label branding is not part of Lite)")
+    void updateSettings_ignoresBranding() {
         Company company = sampleCompany();
         when(companyRepository.findByTenantId(TENANT)).thenReturn(Optional.of(company));
-        when(companyRepository.save(any(Company.class))).thenAnswer(i -> i.getArgument(0));
-
         TenantSettingsDto dto = new TenantSettingsDto(
                 null, null, null, null, null, null,
                 null, null, null, null, null, null,
@@ -95,11 +89,7 @@ class TenantSettingsServiceTest {
 
         TenantSettingsDto result = service.updateSettings(dto);
 
-        assertThat(company.getLogoUrl()).isEqualTo("https://example.com/new-logo.png");
-        assertThat(company.getPrimaryColor()).isEqualTo("#ff6600");
-        assertThat(company.getFaviconUrl()).isEqualTo("https://example.com/favicon.ico");
-        assertThat(company.getCompanyTagline()).isEqualTo("New Tagline");
-        verify(companyRepository).save(company);
+        assertThat(company.getLogoUrl()).isEqualTo("https://example.com/logo.png");
     }
 
     @Test

@@ -70,11 +70,6 @@ class CustomerServiceTest {
     @Test
     @DisplayName("createCustomer() persists and returns customer")
     void createCustomer_persistsCustomer() {
-        Company co = new Company();
-        co.setId(1L);
-        co.setTenantId(TENANT);
-        when(companyRepository.findByTenantId(TENANT)).thenReturn(Optional.of(co));
-        when(customerRepository.count()).thenReturn(0L);
         CustomerRequest req = new CustomerRequest("New Corp", "new@example.com", "+1", "123 St", "Dubai", "AE", "TAX",
                 "John", "VIP");
         Customer saved = new Customer();

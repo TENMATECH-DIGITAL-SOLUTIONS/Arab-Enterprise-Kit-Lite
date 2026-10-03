@@ -2,6 +2,7 @@ package com.enterprise.starter.kit.modules.invoices.service;
 
 import com.enterprise.starter.kit.modules.customers.entity.Customer;
 import com.enterprise.starter.kit.modules.customers.repository.CustomerRepository;
+import com.enterprise.starter.kit.modules.dashboard.service.DashboardService;
 import com.enterprise.starter.kit.modules.invoices.dto.InvoiceRequest;
 import com.enterprise.starter.kit.modules.invoices.dto.InvoiceUpdateRequest;
 import com.enterprise.starter.kit.modules.invoices.entity.Invoice;
@@ -39,6 +40,8 @@ class InvoiceServiceTest {
     private CustomerRepository customerRepository;
     @Mock
     private CompanyRepository companyRepository;
+    @Mock
+    private DashboardService dashboardService;
 
     @InjectMocks
     private InvoiceService invoiceService;
@@ -57,13 +60,6 @@ class InvoiceServiceTest {
 
     @Test
     void create_validRequest_persistsInvoice() {
-        // Setup tenant company
-        Company company = new Company();
-        company.setId(1L);
-        company.setTenantId(TENANT);
-        when(companyRepository.findByTenantId(TENANT)).thenReturn(Optional.of(company));
-        when(invoiceRepository.countByTenantIdAndInvoiceDateBetween(eq(TENANT), any(), any())).thenReturn(0L);
-
         InvoiceRequest req = new InvoiceRequest(
                 new BigDecimal("100.00"),
                 "Acme",

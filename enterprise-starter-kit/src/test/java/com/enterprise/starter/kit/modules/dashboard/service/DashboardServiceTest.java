@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.context.ApplicationContext;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,6 +29,7 @@ class DashboardServiceTest {
 
     @Mock private InvoiceRepository invoiceRepository;
     @Mock private CustomerRepository customerRepository;
+    @Mock private ApplicationContext applicationContext;
 
     @InjectMocks private DashboardService dashboardService;
 
@@ -35,6 +38,8 @@ class DashboardServiceTest {
     @BeforeEach
     void setUp() {
         TenantContext.setTenantId(TENANT);
+        // The service calls itself through the Spring proxy so @Cacheable applies; in a unit test the proxy is the object itself.
+        lenient().when(applicationContext.getBean(DashboardService.class)).thenReturn(dashboardService);
     }
 
     @AfterEach
@@ -51,7 +56,7 @@ class DashboardServiceTest {
         when(invoiceRepository.countByTenantIdAndStatus(TENANT, InvoiceStatus.PENDING)).thenReturn(2L);
         when(invoiceRepository.countByTenantIdAndStatus(TENANT, InvoiceStatus.OVERDUE)).thenReturn(1L);
         when(invoiceRepository.countByTenantIdAndStatus(TENANT, InvoiceStatus.CANCELLED)).thenReturn(1L);
-        when(customerRepository.count()).thenReturn(5L);
+        when(customerRepository.countByTenantId(TENANT)).thenReturn(5L);
 
         DashboardStatsDTO stats = dashboardService.getStats();
 
@@ -70,7 +75,7 @@ class DashboardServiceTest {
         when(invoiceRepository.countByTenantId(TENANT)).thenReturn(0L);
         when(invoiceRepository.sumAmountByTenantId(TENANT)).thenReturn(null);
         when(invoiceRepository.countByTenantIdAndStatus(any(), any())).thenReturn(0L);
-        when(customerRepository.count()).thenReturn(0L);
+        when(customerRepository.countByTenantId(TENANT)).thenReturn(0L);
 
         DashboardStatsDTO stats = dashboardService.getStats();
 
@@ -89,7 +94,7 @@ class DashboardServiceTest {
         when(invoiceRepository.countByTenantIdAndStatusAndDateRange(eq(TENANT), eq(InvoiceStatus.PENDING),   eq(from), eq(to))).thenReturn(1L);
         when(invoiceRepository.countByTenantIdAndStatusAndDateRange(eq(TENANT), eq(InvoiceStatus.OVERDUE),   eq(from), eq(to))).thenReturn(0L);
         when(invoiceRepository.countByTenantIdAndStatusAndDateRange(eq(TENANT), eq(InvoiceStatus.CANCELLED), eq(from), eq(to))).thenReturn(0L);
-        when(customerRepository.count()).thenReturn(3L);
+        when(customerRepository.countByTenantId(TENANT)).thenReturn(3L);
 
         DashboardStatsDTO stats = dashboardService.getStatsByDateRange(from, to);
 

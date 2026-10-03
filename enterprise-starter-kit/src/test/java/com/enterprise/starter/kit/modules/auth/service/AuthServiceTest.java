@@ -1,7 +1,6 @@
 package com.enterprise.starter.kit.modules.auth.service;
 
 import com.enterprise.starter.kit.config.security.JwtUtils;
-import com.enterprise.starter.kit.config.security.OAuth2Properties;
 import com.enterprise.starter.kit.modules.auth.dto.LoginRequest;
 import com.enterprise.starter.kit.modules.auth.dto.RegisterRequest;
 import com.enterprise.starter.kit.modules.auth.entity.RefreshToken;
@@ -9,7 +8,7 @@ import com.enterprise.starter.kit.modules.auth.entity.Role;
 import com.enterprise.starter.kit.modules.auth.entity.User;
 import com.enterprise.starter.kit.modules.auth.repository.RoleRepository;
 import com.enterprise.starter.kit.modules.auth.repository.UserRepository;
-import com.enterprise.starter.kit.modules.notification.service.EmailService;
+import com.enterprise.starter.kit.shared.email.EmailService;
 import com.enterprise.starter.kit.modules.tenant.repository.CompanyRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,6 @@ class AuthServiceTest {
     @Mock private PasswordEncoder passwordEncoder;
     @Mock private JwtUtils jwtUtils;
     @Mock private RefreshTokenService refreshTokenService;
-    @Mock private OAuth2Properties oauth2Properties;
 
     @InjectMocks private AuthService authService;
 
