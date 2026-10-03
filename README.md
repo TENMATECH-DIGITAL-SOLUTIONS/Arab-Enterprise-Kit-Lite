@@ -1,5 +1,8 @@
 <div align="center">
 
+
+> **Security update (Lite security update, 2026-10-03):** tenant isolation hardened. Primary-key lookups now respect the tenant filter, and the filter fails closed when no tenant is set. See CHANGELOG.md.
+
 # 🏢 Arab Enterprise Kit — Lite Edition
 
 ### The Open-Source Foundation for Enterprise SaaS Applications

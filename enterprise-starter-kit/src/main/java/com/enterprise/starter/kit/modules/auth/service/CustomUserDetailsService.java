@@ -1,5 +1,7 @@
 package com.enterprise.starter.kit.modules.auth.service;
 
+import com.enterprise.starter.kit.shared.tenant.TenantAgnostic;
+
 import com.enterprise.starter.kit.modules.auth.entity.User;
 import com.enterprise.starter.kit.modules.auth.repository.UserRepository;
 import java.util.Optional;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 /// @see org.springframework.security.core.userdetails.UserDetailsService
 /// @see SecurityConfig for integration with authentication provider
 @Service
+@TenantAgnostic
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;

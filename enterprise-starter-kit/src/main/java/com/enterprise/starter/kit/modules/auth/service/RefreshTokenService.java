@@ -1,5 +1,7 @@
 package com.enterprise.starter.kit.modules.auth.service;
 
+import com.enterprise.starter.kit.shared.tenant.TenantAgnostic;
+
 import com.enterprise.starter.kit.modules.auth.entity.RefreshToken;
 import com.enterprise.starter.kit.modules.auth.repository.RefreshTokenRepository;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
+@TenantAgnostic
 public class RefreshTokenService {
 
     private static final Logger log = LoggerFactory.getLogger(RefreshTokenService.class);

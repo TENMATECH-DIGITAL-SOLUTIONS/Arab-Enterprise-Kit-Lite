@@ -1,5 +1,7 @@
 package com.enterprise.starter.kit.modules.auth.service;
 
+import com.enterprise.starter.kit.shared.tenant.TenantAgnostic;
+
 import com.enterprise.starter.kit.modules.auth.dto.AuthResponse;
 import com.enterprise.starter.kit.modules.auth.dto.LoginRequest;
 import com.enterprise.starter.kit.modules.auth.dto.RegisterRequest;
@@ -48,6 +50,7 @@ import org.springframework.transaction.annotation.Transactional;
 ///      REST endpoints
 /// @see JwtUtils for token generation logic
 @Service
+@TenantAgnostic
 public class AuthService {
 
     private static final Logger log = LoggerFactory.getLogger(AuthService.class);
