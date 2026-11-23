@@ -24,7 +24,7 @@ A **production-ready, open-source starter kit** for building enterprise-grade Sa
 
 > **🔥 Need the Full Enterprise Experience?**
 > Save 3+ months of development time. The PRO & AGENCY versions include Stripe Billing, Local AI Chatbots, JasperReports PDFs, 2FA, API Keys, WebSockets, and Cloud Attachments.
-> [👉 Get the Full Version on Gumroad Here](https://mahmoudfarouk28.gumroad.com/l/arab-enterprise-kit-V5-solo)
+> [👉 See the full version](https://tenmatechdigital.com/products#aek)
 
 
 ---
@@ -182,7 +182,7 @@ The **Lite Edition** is perfect for learning, prototyping, and building MVPs. Wh
 
 <div align="center">
 
-### 🚀 [Get Pro/Agency Edition on Gumroad →](https://mahmoudfarouk28.gumroad.com/l/arab-enterprise-kit-V5-solo)
+### 🚀 [See the full version →](https://tenmatechdigital.com/products#aek)
 
 *One-time purchase · Full source code · Lifetime updates*
 
